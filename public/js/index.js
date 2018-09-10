@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars,no-undef,semi,no-useless-escape,eol-last */
+/* eslint-disable no-unused-vars,no-undef,semi,no-useless-escape,eol-last,no-trailing-spaces */
 var socket;
 var chart;
 
@@ -15,6 +15,7 @@ function addData (city, label, data) {
   window.onload = function () {
     var chartElement = document.getElementById('weather-forecast-chart');
     chart = new Chart(chartElement, chartOptions);
+
     socket = io();
     socket.on('weather', function (data) {
       if (!data) return;
