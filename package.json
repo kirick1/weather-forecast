@@ -1,0 +1,32 @@
+{
+  "name": "weather-forecast",
+  "version": "1.0.0",
+  "description": "Test task",
+  "main": "bin/www",
+  "scripts": {
+    "test": "standard --fix",
+    "start": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kirick1/weather-forecast.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kirick1/weather-forecast/issues"
+  },
+  "homepage": "https://github.com/kirick1/weather-forecast#readme",
+  "devDependencies": {
+    "standard": "^12.0.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "debug": "^3.1.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "socket.io": "^2.1.1"
+  }
+}
