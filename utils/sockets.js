@@ -5,11 +5,7 @@ module.exports = (io) => {
     let data
     getWeatherRequest(current => { data = current })
     socket.on('disconnect', () => console.log('Client disconnected'))
-    setInterval(() => {
-      getWeatherRequest(current => { data = current })
-    }, 2000)
-    setInterval(() => {
-      io.emit('weather', data)
-    }, 1000)
+    setInterval(() => getWeatherRequest(current => { data = current }), 2000)
+    setInterval(() => io.emit('weather', data), 1000)
   })
 }

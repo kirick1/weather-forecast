@@ -1,5 +1,6 @@
 require('dotenv').load()
 
+const cors = require('cors')
 const path = require('path')
 const http = require('http')
 const morgan = require('morgan')
@@ -7,9 +8,11 @@ const express = require('express')
 
 const app = express()
 const server = http.Server(app)
+
 const io = require('socket.io')(server)
 const socket = require('./utils/sockets')
 
+app.use(cors())
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'public')))
 
