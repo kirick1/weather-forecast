@@ -9,14 +9,13 @@ function addData (city, label, data) {
 }
 
 (function () {
-  window.onclose = function () {
-    return socket.disconnect();
-  }
   window.onload = function () {
     var chartElement = document.getElementById('weather-forecast-chart');
     chart = new Chart(chartElement, chartOptions);
 
-    socket = io();
+    var serverAddress = (window.location.hostname === 'localhost') ? 'http://localhost:3000/' : 'https://dashboard.heroku.com/apps/weather-forecast-test-task'
+
+    socket = io(serverAddress);
     socket.on('weather', function (data) {
       if (!data) return;
       if (data.kiev) {
@@ -38,5 +37,8 @@ function addData (city, label, data) {
         document.getElementById('london-weather-text').innerText = '';
       }
     });
+  }
+  window.onclose = function () {
+    return socket.disconnect();
   }
 })()
