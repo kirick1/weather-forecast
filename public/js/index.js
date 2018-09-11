@@ -18,7 +18,7 @@ function convertKelvinToCelsium (temperature) {
     var chartElement = document.getElementById('weather-forecast-chart');
     chart = new Chart(chartElement, chartOptions);
 
-    socket = io((window.location.hostname === 'localhost') ? 'http://localhost:3000/' : 'https://dashboard.heroku.com/apps/weather-forecast-test-task');
+    socket = io((window.location.hostname === 'localhost') ? 'http://localhost:3000/' : 'https://weather-forecast-test-task.herokuapp.com/');
     socket.on('weather', function (data) {
       if (!data) return null;
       if (data.Kiev) {
