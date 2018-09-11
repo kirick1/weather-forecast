@@ -1,6 +1,5 @@
 require('dotenv').load()
 
-const cors = require('cors')
 const path = require('path')
 const http = require('http')
 const morgan = require('morgan')
@@ -10,16 +9,18 @@ const app = express()
 const server = http.createServer(app)
 
 const io = require('socket.io')(server, { origins: '*:*' })
+io.set('transports', [ 'websocket', 'xhr-polling', 'jsonp-polling', 'htmlfile', 'flashsocket' ])
+io.set('origins', '*:*')
+io.set('origins', 'https://weather-forecast-test-task.herokuapp.com:*')
+
 const sockets = require('./utils/sockets')
 
-app.use(cors())
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
   next()
 })
