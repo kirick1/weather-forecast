@@ -1,5 +1,6 @@
 require('dotenv').load()
 
+const cors = require('cors')
 const path = require('path')
 const http = require('http')
 const morgan = require('morgan')
@@ -8,13 +9,16 @@ const express = require('express')
 const app = express()
 const server = http.createServer(app)
 
-const io = require('socket.io')(server, { origins: '*:*' })
-io.set('transports', [ 'websocket', 'xhr-polling', 'jsonp-polling', 'htmlfile', 'flashsocket' ])
+const io = require('socket.io')(server)
+
 io.set('origins', '*:*')
-io.set('origins', 'https://weather-forecast-test-task.herokuapp.com:*')
 
 const sockets = require('./utils/sockets')
 
+app.use(cors({
+  origin: true,
+  credentials: true
+}))
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'public')))
 
