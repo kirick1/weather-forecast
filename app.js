@@ -7,20 +7,26 @@ const morgan = require('morgan')
 const express = require('express')
 
 const app = express()
-const server = http.Server(app)
+const server = http.createServer(app)
 
-const io = require('socket.io')(server)
-const socket = require('./utils/sockets')
+const io = require('socket.io')(server, { origins: '*:*' })
+const sockets = require('./utils/sockets')
 
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
+  next()
+})
+
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'views', 'index.html')))
 
-app.use((req, res) => res.redirect('/'))
-
-socket(io)
+sockets(io)
 
 const PORT = process.env.PORT || 3000
 
